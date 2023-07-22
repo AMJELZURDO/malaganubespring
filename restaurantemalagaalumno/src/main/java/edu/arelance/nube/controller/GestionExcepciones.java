@@ -6,31 +6,40 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-//esta clase escucha las excepciones de este paquete
+//Esta clase esta escuchando todas las excepciones de este paquete
 @RestControllerAdvice(basePackages = {"edu.arelance.nube"})
-public class GestionExcepciones  {
+public class GestionExcepciones {
 	
-	Logger logger = LoggerFactory.getLogger(RestauranteController.class);
+	Logger logger = LoggerFactory.getLogger(GestionExcepciones.class);
+	
 	
 	//para cada tipo de excepción / defino un método
-	@ExceptionHandler (StringIndexOutOfBoundsException.class)
+	/**
+	 * ENTRADAS -SALIDAS-FUNCIONALIDAD-PRECONDICIONES-CONDICIONEs
+	 * @param e
+	 * @return
+	 */
+	@ExceptionHandler(StringIndexOutOfBoundsException.class)
 	public ResponseEntity<?> gestionStringOutIndexException (StringIndexOutOfBoundsException e)
 	{
 		ResponseEntity<?> responseEntity = null;
 		
-		responseEntity = ResponseEntity.internalServerError().body(e.getMessage());
-		logger.error(e.getMessage(), e);
+			responseEntity = ResponseEntity.internalServerError().body(e.getMessage());
+			logger.error(e.getMessage(), e);
+			
 		return responseEntity;
-		
 	}
-	@ExceptionHandler (Throwable.class)
+	
+	
+	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<?> gestionExceptionGenerica (Throwable e)
 	{
 		ResponseEntity<?> responseEntity = null;
 		
-		responseEntity = ResponseEntity.internalServerError().body(e.getMessage());
-		
+			responseEntity = ResponseEntity.internalServerError().body(e.getMessage());
+			logger.error(e.getMessage(), e);
+			
 		return responseEntity;
-		
 	}
+	
 }
